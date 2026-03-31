@@ -1,22 +1,19 @@
-# OptiX Final Secure Site
+# OptiX Final Secure Site (Fixed)
 
-This package is set up so the only things left are:
-
-1. Connect your domain to Vercel
-2. Add your environment variables
-3. Create your PayNow product and paste its URL into `PAYNOW_PRODUCT_URL_REGULAR`
+This package fixes the Prisma schema error and updates Next.js to a patched release.
 
 ## Included
 
-- Secure email/password auth with Argon2id
+- OptiX homepage/shop layout
+- Email/password auth with Argon2id
 - Google login
 - Discord login
-- Forgot-password / reset-password
-- Gmail API reset email sender scaffold
+- Forgot-password + reset-password
 - Prisma + PostgreSQL
+- Gmail API sender scaffold
 - Cloudflare Turnstile hook
 - Security headers + CSP
-- OptiX landing page + shop-ready layout
+- PayNow-ready product button
 
 ## Setup
 
@@ -27,20 +24,9 @@ npx prisma db push
 npm run dev
 ```
 
-## Final things you must configure
+## What changed
 
-- `DATABASE_URL`
-- `AUTH_SECRET`
-- Google OAuth credentials
-- Discord OAuth credentials
-- Gmail API credentials
-- Cloudflare Turnstile keys
-- `PAYNOW_PRODUCT_URL_REGULAR`
-
-## Security notes
-
-- Never put secrets in client code
-- Keep `.env` out of git
-- Add Cloudflare WAF + rate limiting for auth routes
-- Keep Vercel HTTPS enabled
-- Rotate secrets if exposed
+- Prisma schema rewritten with valid multiline block syntax
+- Next.js upgraded to 15.5.9
+- Prisma packages aligned to current CLI line
+- Structure kept server-safe for secrets

@@ -1,4 +1,5 @@
 "use client";
+
 import Script from "next/script";
 
 export default function TurnstileWidget() {
@@ -7,7 +8,11 @@ export default function TurnstileWidget() {
 
   return (
     <>
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer
+      />
       <div className="cf-turnstile" data-sitekey={siteKey}></div>
     </>
   );

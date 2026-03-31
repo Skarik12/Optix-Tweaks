@@ -1,15 +1,21 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql" url = env("DATABASE_URL") }
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
+  id            String               @id @default(cuid())
+  email         String               @unique
   emailVerified DateTime?
   name          String?
   image         String?
   passwordHash  String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
   accounts      Account[]
   sessions      Session[]
   resetTokens   PasswordResetToken[]
@@ -49,6 +55,7 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+
   @@id([identifier, token])
 }
 

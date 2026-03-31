@@ -16,6 +16,7 @@ const features = [
 
 export default async function HomePage() {
   const session = await auth();
+  const paynowUrl = process.env.PAYNOW_PRODUCT_URL_REGULAR || "#";
 
   return (
     <>
@@ -52,7 +53,7 @@ export default async function HomePage() {
                 <div className="price">$4.99</div>
                 <p className="small">Link this button to your PayNow product URL after product creation.</p>
               </div>
-              <a className="btn" href={process.env.PAYNOW_PRODUCT_URL_REGULAR || "#"}>Buy Now</a>
+              <a className="btn" href={paynowUrl}>Buy Now</a>
             </div>
           </div>
 
@@ -71,7 +72,9 @@ export default async function HomePage() {
           <div className="card">
             <h2 id="features">Features</h2>
             <div className="feature-list">
-              {features.map((feature) => <div key={feature} className="feature">{feature}</div>)}
+              {features.map((feature) => (
+                <div key={feature} className="feature">{feature}</div>
+              ))}
             </div>
           </div>
         </section>

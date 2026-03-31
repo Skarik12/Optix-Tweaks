@@ -12,10 +12,11 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   const form = await req.formData();
   const parsed = schema.safeParse(Object.fromEntries(form));
-  if (!parsed.success) return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
 
   const tokenHash = sha256(parsed.data.token);
-
   const token = await db.passwordResetToken.findUnique({
     where: { tokenHash }
   });

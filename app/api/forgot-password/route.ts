@@ -15,16 +15,25 @@ const GENERIC_MESSAGE = "If an account exists for that email, a reset link has b
 export async function POST(req: NextRequest) {
   const form = await req.formData();
   const parsed = schema.safeParse(Object.fromEntries(form));
-  if (!parsed.success) return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
+  if (!parsed.success) {
+    return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
+  }
 
-  const ok = await verifyTurnstile(parsed.data["cf-turnstile-response"] ?? null, req.headers.get("CF-Connecting-IP"));
-  if (!ok) return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
+  const ok = await verifyTurnstile(
+    parsed.data["cf-turnstile-response"] ?? null,
+    req.headers.get("CF-Connecting-IP")
+  );
+  if (!ok) {
+    return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
+  }
 
   const user = await db.user.findUnique({
     where: { email: parsed.data.email.toLowerCase() }
   });
 
-  if (!user) return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
+  if (!user) {
+    return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
+  }
 
   const rawToken = generateToken();
   const tokenHash = sha256(rawToken);
@@ -42,6 +51,5 @@ export async function POST(req: NextRequest) {
   resetUrl.searchParams.set("token", rawToken);
 
   await sendPasswordResetEmail(user.email, resetUrl.toString());
-
   return NextResponse.json({ message: GENERIC_MESSAGE }, { status: 200 });
 }
