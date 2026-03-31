@@ -51,7 +51,6 @@ export default async function HomePage() {
             <div className="shop-card">
               <div>
                 <div className="price">$4.99</div>
-                <p className="small">Link this button to your PayNow product URL after product creation.</p>
               </div>
               <a className="btn" href={paynowUrl}>Buy Now</a>
             </div>
